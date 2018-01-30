@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="searchWrapper">
+    <view class="inputWrapper">
+      <input
+        value="{{inputValue}}"
+        type="text"
+        placeholder="最大输入长度10"
+        maxlength="10"
+        bindinput="inputting"/>
+    </view>
+    <view class="search" bindtap="submit">Search</view>
+  </view>
+  <scroll-view class="content" scroll-y>
+    <view class="list" wx:for="{{resultKeys}}" wx:for-item="itemKey" wx:key>
+      <view class="{{itemKey}}" wx:if="{{itemKey === 'youdao'}}">
+        <view class="title">释义</view>
+        <text>{{resultData[itemKey]['translation']}}</text>
+      </view>
+      <view class="{{itemKey}}" wx:if="{{itemKey !== 'youdao'}}">
+        <view class="title">{{itemKey}}</view>
+        <view class="" wx:for-item="itemKey">
+          <view class="item" wx:for="{{resultData[itemKey]}}" wx:key>
+            <text style="color:#e64340;">{{item.midashi}}</text>
+            <view class="item-content" wx:for-index="idx" wx:for="{{katsuyoKeys}}" wx:for-item="katsuyoItem" wx:key>
+              <view class="item-row" wx:if="{{item[katsuyoKeys[idx]]}}">
+                <text class="item-key">{{katsuyoNames[idx]}}：</text>
+                <text>{{item[katsuyoKeys[idx]]}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
